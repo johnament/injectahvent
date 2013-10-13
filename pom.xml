@@ -11,19 +11,21 @@
 
     <properties>
         <deltaspike.version>0.5</deltaspike.version>
+        <camel.version>2.10.5</camel.version>
+        <cdi.version>1.0-SP4</cdi.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
-            <version>2.11.0</version>
+            <version>${camel.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <version>1.0-SP4</version>
+            <version>${cdi.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
