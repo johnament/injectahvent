@@ -7,8 +7,11 @@ import org.apache.deltaspike.cdise.api.CdiContainerLoader;
 import org.apache.deltaspike.cdise.api.ContextControl;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import java.lang.annotation.Annotation;
+import java.util.Set;
 
 
 public class CDIExchangeProcessor implements Processor {
@@ -30,8 +33,7 @@ public class CDIExchangeProcessor implements Processor {
     }
 
     private void loadContainer() {
-        this.cdiContainer = CdiContainerLoader.getCdiContainer();
-        this.contextControl = cdiContainer.getContextControl();
+        this.contextControl = this.getContextControl();
     }
 
     private void startRequestContext() {
@@ -42,8 +44,27 @@ public class CDIExchangeProcessor implements Processor {
         this.contextControl.stopContext(RequestScoped.class);
     }
 
+    private BeanManager getBeanManager() {
+        return this.beanManager;
+    }
+
+    public ContextControl getContextControl()
+    {
+        Bean<ContextControl> ctxCtrlBean = null;
+        CreationalContext<ContextControl> ctxCtrlCreationalContext = null;
+        ContextControl ctxCtrl = null;
+        Set<Bean<?>> beans = this.beanManager.getBeans(ContextControl.class);
+        System.out.println("Found beans: "+beans);
+        ctxCtrlBean = (Bean<ContextControl>) beanManager.resolve(beans);
+        ctxCtrlCreationalContext = getBeanManager().createCreationalContext(ctxCtrlBean);
+        ctxCtrl = (ContextControl)
+                    this.beanManager.getReference(ctxCtrlBean, ContextControl.class, ctxCtrlCreationalContext);
+        return ctxCtrl;
+    }
+
     @Override
     public void process(Exchange exchange) throws Exception {
+        System.out.println("Processing exchange.");
         try{
             this.startRequestContext();
             if(fireBody) {
