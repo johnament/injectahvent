@@ -28,7 +28,7 @@ public class EventReceivedTest {
     @Deployment
     public static JavaArchive createInjectahventArchive() {
         return ShrinkWrap.create(JavaArchive.class).addClasses(CDIExchangeProcessor.class,Configuration.class,
-                ConfigurationBuilder.class,EventReceiver.class)
+                ConfigurationBuilder.class,AppScopedEventReceiver.class,RequestScopedEventReceiver.class)
                 .addPackage(WeldContextControl.class.getPackage())
                 .addPackage(CdiContainer.class.getPackage())
                 .addAsManifestResource(new StringAsset("org.apache.deltaspike.cdise.weld.WeldContainerControl"),"services/org.apache.deltaspike.cdise.api.CdiContainer")
@@ -36,7 +36,7 @@ public class EventReceivedTest {
     }
 
     @Inject
-    private EventReceiver eventReceiver;
+    private AppScopedEventReceiver eventReceiver;
 
     @Inject
     private BeanManager beanManager;
@@ -54,8 +54,9 @@ public class EventReceivedTest {
         };
         cc.addRoutes(rb);
         cc.start();
-        cc.createProducerTemplate().sendBody("direct://foo","ralph");
+        cc.createProducerTemplate().sendBody("direct://foo", "ralph");
         Assert.assertEquals("Event should have been received twice", 2, eventReceiver.getReceivedMessages());
+        Assert.assertEquals("RequestScoped should have been received once",1,eventReceiver.getReceivedReqScoped());
         cc.stop();
     }
 }

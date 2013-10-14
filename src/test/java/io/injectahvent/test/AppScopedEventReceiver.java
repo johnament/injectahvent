@@ -4,8 +4,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 
 @ApplicationScoped
-public class EventReceiver {
+public class AppScopedEventReceiver {
     private int receivedMessages;
+    private int receivedReqScoped;
 
     public void receiveEvent(@Observes Object object) {
         this.receivedMessages++;
@@ -13,5 +14,13 @@ public class EventReceiver {
 
     public int getReceivedMessages() {
         return this.receivedMessages;
+    }
+
+    public void incrementReqScoped() {
+        this.receivedReqScoped++;
+    }
+
+    public int getReceivedReqScoped() {
+        return receivedReqScoped;
     }
 }

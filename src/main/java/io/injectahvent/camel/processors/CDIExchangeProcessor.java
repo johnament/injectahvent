@@ -54,7 +54,6 @@ public class CDIExchangeProcessor implements Processor {
         CreationalContext<ContextControl> ctxCtrlCreationalContext = null;
         ContextControl ctxCtrl = null;
         Set<Bean<?>> beans = this.beanManager.getBeans(ContextControl.class);
-        System.out.println("Found beans: "+beans);
         ctxCtrlBean = (Bean<ContextControl>) beanManager.resolve(beans);
         ctxCtrlCreationalContext = getBeanManager().createCreationalContext(ctxCtrlBean);
         ctxCtrl = (ContextControl)
@@ -64,7 +63,6 @@ public class CDIExchangeProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        System.out.println("Processing exchange.");
         try{
             this.startRequestContext();
             if(fireBody) {
