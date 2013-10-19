@@ -9,21 +9,21 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ * implied.
+ *
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.injectahvent.camel.processors;
+package ws.ament.injectahvent.cdi;
 
-import javax.enterprise.inject.spi.BeanManager;
-import java.lang.annotation.Annotation;
+import javax.inject.Qualifier;
+import java.lang.annotation.*;
 
-public interface Configuration {
-    public boolean isFireBody();
-
-    public boolean isFireExchange();
-
-    public BeanManager getBeanManager();
-
-    public Annotation[] getAnnotations();
+@Qualifier
+@Documented
+@Target({ElementType.TYPE,ElementType.METHOD,ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface RouteTo {
+    public String value();
 }

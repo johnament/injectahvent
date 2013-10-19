@@ -15,12 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.injectahvent.test;
+package ws.ament.injectahvent.test;
 
-import io.injectahvent.camel.processors.CDIExchangeProcessor;
-import io.injectahvent.camel.processors.Configuration;
-import io.injectahvent.camel.processors.ConfigurationBuilder;
-import io.injectahvent.cdi.AbstractRoutingExtension;
+import ws.ament.injectahvent.processors.CDIExchangeProcessor;
+import ws.ament.injectahvent.processors.Configuration;
+import ws.ament.injectahvent.processors.ConfigurationBuilder;
+import ws.ament.injectahvent.cdi.AbstractRoutingExtension;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -50,6 +50,6 @@ public class RoutingExtension extends AbstractRoutingExtension{
 
     @Override
     protected void createRoutes() {
-        super.addToAliased("direct://foo","fooDirect");
+        super.addToAliased("direct://foo", "fooDirect");
     }
 }

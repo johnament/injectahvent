@@ -9,21 +9,25 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
- * implied.
- *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.injectahvent.cdi;
+package ws.ament.injectahvent.test;
 
-import javax.inject.Qualifier;
-import java.lang.annotation.*;
+import org.junit.Assert;
 
-@Qualifier
-@Documented
-@Target({ElementType.TYPE,ElementType.METHOD,ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface RouteTo {
-    public String value();
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+
+@RequestScoped
+public class RequestScopedEventReceiver {
+    @Inject
+    private AppScopedEventReceiver aser;
+
+    public void receiveString(@Observes @Sendable String str) {
+        Assert.assertEquals("ralph", str);
+        aser.incrementReqScoped();
+    }
 }

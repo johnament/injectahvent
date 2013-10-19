@@ -15,12 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.injectahvent.camel.processors;
+package ws.ament.injectahvent.processors;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.deltaspike.cdise.api.CdiContainer;
-import org.apache.deltaspike.cdise.api.CdiContainerLoader;
 import org.apache.deltaspike.cdise.api.ContextControl;
 
 import javax.enterprise.context.RequestScoped;

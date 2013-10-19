@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.injectahvent.cdi;
+package ws.ament.injectahvent.cdi;
 
 
 import org.apache.camel.CamelContext;
