@@ -23,7 +23,8 @@ public class AppScopedEventReceiver {
     private int receivedMessages;
     private int receivedReqScoped;
 
-    public void receiveEvent(@Observes Object object) {
+    public void receiveEvent(@Observes @Sendable Object object) {
+        System.out.println("Receiving event "+object);
         this.receivedMessages++;
     }
 
